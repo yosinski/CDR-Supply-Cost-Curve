@@ -1,4 +1,6 @@
 import numpy as np
+from math import floor, ceil
+from prettytable import PrettyTable
 
 
 class DuckStruct(object):
@@ -46,3 +48,48 @@ def get_clr(tags, default_clr=(.7, .7, .7)):
     pt = get_pt(tags)
     return default_clr if pt == 'none' else colors[pt]
 
+
+def lsprint(lst, max_width=90, return_str=False, align='l'):
+    '''Print a list in columns like ls, where each column is as narrow as
+    possible and items are printed in column-major order.
+
+    If return_str then return string instead of printing.
+
+    A bit hacky. Assumes that the n_cols -> width function is
+    monotonic, which it might not be.
+    '''
+    
+    min_n_cols = 1  # This will succeed or, if it fails, just print it anyway.
+    max_n_cols = int(floor(max_width / 2)) + 1   # Two spaces padding + zero characters width. This should fail.
+
+    def get_table_string_with_n_cols(lst, n_cols, align=align):
+        xx = PrettyTable(border=False, header=False)
+        n_rows = int(ceil(len(lst)/n_cols))
+        for jj in range(n_cols):
+            col = lst[n_rows*jj:n_rows*(jj+1)]
+            col.extend([''] * (n_rows - len(col)))
+            xx.add_column('', col)
+        xx.align = align
+        return xx.get_string()
+
+    # First try with 1 col.
+    largest_working = get_table_string_with_n_cols(lst, min_n_cols, align=align)
+    if len(largest_working.split('\n', 1)[0]) <= max_width:
+        # If this worked, proceed with binary seach. Else just return.
+        while min_n_cols + 1 < max_n_cols:
+            try_n_cols = (min_n_cols + max_n_cols) // 2
+            assert try_n_cols != min_n_cols, 'logic error'
+
+            st = get_table_string_with_n_cols(lst, try_n_cols, align=align)        
+            if len(st.split('\n', 1)[0]) > max_width:
+                # Too wide, decrease max
+                max_n_cols = try_n_cols
+            else:
+                # It worked, increase min
+                min_n_cols = try_n_cols
+                largest_working = st
+
+    if return_str:
+        return largest_working
+    else:
+        print(largest_working)

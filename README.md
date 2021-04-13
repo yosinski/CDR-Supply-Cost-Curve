@@ -4,6 +4,14 @@ Hi there. This is a repo for work on the Air Miners CDR Supply Cost Curve proble
 
 
 
+# Setup
+
+```
+pip install -r requirements.txt
+```
+
+
+
 # JSON and Python and Google, oh my
 
 The data pipeline:
