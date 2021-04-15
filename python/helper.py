@@ -29,6 +29,7 @@ _colors = {
 colors = {k: np.array(v)/100.0 for k, v in _colors.items()}
 # ['forests', 'soil', 'biomass', 'ocean', 'mineralization', 'dac']
 primary_tags = list(colors.keys())
+primary_tag_set = set(primary_tags)
 
 primary_tags_carbonplan_pt_order = ['forests', 'soil', 'biomass', 'dac', 'mineralization', 'ocean']
 
