@@ -30,6 +30,16 @@ mv -f output.csv data/Supply_Cost_Projections_df.csv
 ```
      
  2. Analyze that data using the `210412_carbonplan.ipynb` Jupyter notebook.
+ 
+ 
+
+
+# Create gif
+
+If you want to make a gif from individual pngs, you can do so using commands like this:
+
+    for file in vcp_*anim*png; do convert $file -background white -flatten $file.w.png; done;
+    convert -delay 50 vcp_*anim*png.w.png vcp_anim.gif
 
 
 
