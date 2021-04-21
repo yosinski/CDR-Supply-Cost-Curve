@@ -38,11 +38,11 @@ mv -f output.csv data/Supply_Cost_Projections_df.csv
 
 Follow [these instructions](https://pypi.org/project/gspread-pandas/). You'll have to do that once to set up the authentication, and then you might have to redo it again if your tokens expire (happened to me after one week).
 
-If you get this error:
+You may get this error when you run the `pull_from_google.py` script:
 
     google.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', '{\n  "error": "invalid_grant",\n  "error_description": "Token has been expired or revoked."\n}')
     
-Then remove this file and it should force a re-authorization when you run the `pull_from_google.py` script:
+If so, removing the following file should force a re-authorization next time you run the script:
 
     rm ~/.config/gspread/authorized_user.json
 
