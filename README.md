@@ -23,9 +23,11 @@ Pull fresh data from Google sheets:
 
  1. Pull data (including projections for the future, filled in by the team) from Google using `pull_from_google.py`. The last line will overwrite the current version of `Supply_Cost_Projections_df.csv` saved in the repo.
 
-     cd CDR-Supply-Cost-Curve
-     python/pull_from_google.py
-     mv -f output.csv data/Supply_Cost_Projections_df.csv
+```bash
+cd CDR-Supply-Cost-Curve
+python/pull_from_google.py
+mv -f output.csv data/Supply_Cost_Projections_df.csv
+```
      
  2. Analyze that data using the `210412_carbonplan.ipynb` Jupyter notebook.
 
